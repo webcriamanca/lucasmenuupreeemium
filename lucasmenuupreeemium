@@ -74,6 +74,26 @@ JogadorTab:AddButton({
 })
 
 JogadorTab:AddButton({
+	Name = "God Mode 2 (melhor)",
+	Callback = function()
+        local Player = game.Players.LocalPlayer
+        local Character = Player.Character
+        local Humanoid = Character.Humanoid
+         
+        print('Godmode working.')
+         
+        Humanoid.MaxHealth = 999999
+        Humanoid.Health = Humanoid.MaxHealth / 2
+         
+        Humanoid.HealthChanged:connect(function()
+            if Humanoid.Health < 10 then
+                Humanoid.Health = Humanoid.MaxHealth
+            end
+        end)
+  	end    
+})
+
+JogadorTab:AddButton({
     Name = "instagram: @Lucas_inacio0_0",
     Callback = function()
       end
@@ -487,6 +507,105 @@ ArmaTab:AddButton({
             end
   	end    
 })
+
+ArmaTab:AddButton({
+	Name = "Aimbot By Pedroxz",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/pedroxzytbhypee/PvpRobloxTroll/main/README.md"))()
+	end
+})   
+
+JogadorTab:AddButton({
+    Name = "Puxar Algema (!)",
+    Callback = function()
+        for i, v in pairs(game:GetDescendants()) do
+            if v:IsA('Tool') then
+                v.Parent = game:GetService('Players').LocalPlayer.Backpack
+            end
+        end
+        
+        game:GetService('Players').LocalPlayer.Character.Humanoid.Died:Connect(function()
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Backpack:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Character:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+        end)
+      end              
+    })
+
+    JogadorTab:AddToggle({
+        Name = "Anti Staff (!)",
+        Default = false,
+        Callback = function(Value)
+            print(Value)
+        end 
+})
+
+JogadorTab:AddButton({
+	Name = "Kill All (Pessoa com arma) (!)",
+	Callback = function()
+        local user, tool
+        for i,p in next, game.Players:GetPlayers() do
+            for i,v in next, p.Backpack:GetChildren() do
+                if v:FindFirstChild("WeaponType") then
+                    user, tool = p, v
+                    break
+                end
+            end
+        
+            if tool then break end
+            local c = p.Character
+            local t = c and c:FindFirstChildOfClass("Tool")
+            if t and t:FindFirstChild("WeaponType") then
+                user, tool = p, t
+            end
+        end
+        
+        local rmt = game.ReplicatedStorage.WeaponsSystem.Network.WeaponHit
+        local plr = game.Players.LocalPlayer
+        
+        for i,v in next, game.Players:GetPlayers() do
+            if v ~= plr and v ~= user then
+                local chr = v.Character
+                local hum = chr:FindFirstChild("Humanoid")
+                local head = chr:FindFirstChild("Head")
+        
+                rmt:FireServer(tool, {
+                    ["p"] = head.Position,
+                    ["pid"] = 1,
+                    ["part"] = head,
+                    ["d"] = 0,
+                    ["maxDist"] = 0,
+                    ["h"] = hum,
+                    ["m"] = Enum.Material.Plastic,
+                    ["n"] = Vector3.new(),
+                    ["t"] = 0,
+                    ["sid"] = 24
+                })
+            end
+        end
+  	end    
+})
+
+CarroTab:AddButton({
+	Name = "Deletar Todos Os Carros",
+	Callback = function()
+        local args = {
+            [1] = "dealership",
+            [2] = "Fusca"
+        }
+        
+        game:GetService("ReplicatedStorage").ConcessionariaRS.Remotes.Check:InvokeServer(unpack(args))
+        wait(1)
+  	end    
+})
+
 ArmaTab:AddButton({
     Name = "Clonar Items",
     Callback = function()
@@ -854,6 +973,69 @@ local CarroSection = CarroTab:AddSection({
 })
 
 CarroTab:AddButton({
+	Name = "Tp Carro Proximo",
+	Callback = function()
+        local tool = Instance.new("Tool")
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        
+        tool.Name = "TP Car"
+        tool.CanBeDropped = false 
+        tool.RequiresHandle = false 
+        tool.Parent = player.Backpack
+        
+        tool.Activated:Connect(function()
+            local humanoid = player.Character.Humanoid
+        
+            if humanoid.SeatPart then
+                local car = humanoid.SeatPart.Parent 
+        
+                if car then
+                    local size = car:GetExtentsSize()
+                    car:PivotTo(CFrame.new(mouse.Hit.Position + Vector3.yAxis * (size.Y/2)))
+                end
+            end
+        end)
+  	end    
+})
+
+JogadorTab:AddButton({
+	Name = "Anti Kick",
+	Callback = function()
+        local PlayersService = game:GetService('Players')
+        local Metatable = getrawmetatable(game)
+        local OldMetatable = Metatable.__namecall
+        local Protect = newcclosure or protect_function
+        setreadonly(Metatable,false)
+        Metatable.__namecall = Protect(function(self,...)
+            if getnamecallmethod() == 'Kick' then
+                wait(9e9)
+                return
+            end
+            return OldMetatable(self,...)
+        end)
+        hookfunction(PlayersService.LocalPlayer.Kick,Protect(function()
+            wait(9e9)
+        end))
+  	end  
+})
+
+MenuTab:AddButton({
+	Name = "Reviver (!)",
+	Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.Menu:FireServer()
+        wait(000000.5)
+  	end    
+})
+
+MenuTab:AddButton({
+	Name = "Ver Inventario Da Pessoa",
+	Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/pedroxzytbhypee/inventariobydrec/main/README.md'))()
+  	end  
+})
+
+CarroTab:AddButton({
 	Name = "Reparar Veiculo (acs nova)",
 	Callback = function()
         wait(0.2)
@@ -865,11 +1047,302 @@ CarroTab:AddButton({
   	end
 })
 
+MenuTab:AddButton({
+	Name = "Puxar Dinheiro 3 Possui Bypass",
+	Callback = function()
+      		local Player = game.Players.LocalPlayer
+local Dinheiro = Player.leaderstats.Dinheiro
+
+Dinheiro.Value = 99999999
+  	end   
+})
+MenuTab:AddButton({
+	Name = "Puxar Dinheiro (300K)",
+	Callback = function()
+      		local Player = game.Players.LocalPlayer
+local Dinheiro = Player.leaderstats.Dinheiro
+
+Dinheiro.Value = 300000
+  	end   
+    })
+
 CarroTab:AddButton({
 	Name = "Tp Veiculo",
 	Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/G-development-M/DreckModz/main/By_dreck_/TpCarrosCadeiras.lua'))()
   	end        
+})
+
+MenuTab:AddButton({
+    Name = "Logs Staff (!)",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/stggPUBM", true))()
+      end       
+    })
+
+JogadorTab:AddButton({
+     Name = "Bypass Adonis (Funcional)",
+     Callback = function()
+           local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/insanedude59/notiflib/main/main"))()
+            local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/vKhonshu/intro2/main/ui2"))()
+            local NotifyLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vKhonshu/intro/main/ui"))()
+             NotifyLib.prompt('Adonis Anti-Cheat Disabler Bypass', 'bypassed', 1.2)
+             NotifyLib.prompt('Adonis Anti-Cheat Disabler Bypass', 'this only works for games that have adonis in it', 1.2)
+            
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/RelkzzRebranded/Bypassed---OBFUSCATED..../main/Adonis%20BYPASS.lua"))()
+          end   
+    })
+
+MenuTab:AddButton({
+	Name = "Set Money",
+	Callback = function()
+        local args = {
+            [1] = {
+                [1] = "",
+                [2] = "",
+                [3] = "",
+                [4] = 0,
+                [5] = 19,
+                [6] = -293400000
+            }
+        }
+        
+        game:GetService("ReplicatedStorage").EventosRemote.ComprarCarro:FireServer(unpack(args))
+  	end  
+})   
+
+ArmaTab:AddButton({
+	Name = "Give armas - ACS",
+	Callback = function()
+        xpcall(function()
+            local Player = game.Players.LocalPlayer
+            local Storage = game.ReplicatedStorage
+            local Teams = game:GetService("Teams")
+            local Undo,Guns,MCache = {},{},{}
+            
+            function ChildrenOfTool(gc)
+                local total = 0
+                for i,v in next, gc do
+                    if v:IsA("Tool") then
+                        total = total + 1
+                    end
+                end
+                
+                return total
+            end
+            
+            -- GUI
+            local _raw
+            local _liblink = "https://raw.githubusercontent.com/loglizzy/Elerium-lib/main/lib.min.lua"
+            if isfile and readfile then
+                if isfile("log-Elerium.lib") then
+                    _raw = readfile("log-Elerium.lib")
+                else
+                    _raw = game:HttpGet(_liblink)
+                    writefile("log-Elerium.lib", _raw)
+                end
+            else
+                _raw = game:HttpGet(_liblink)
+            end
+            
+            local Library = loadstring(_raw)()
+            local Window,WRender = Library:AddWindow("Racismo 2.0.1 [BETA]", {
+                main_color = Color3.fromRGB(45, 45, 45),
+                min_size = Vector2.new(350, 600),
+                toggle_key = Enum.KeyCode.RightShift,
+                can_resize = true,
+            })
+            
+            WRender.ImageColor3 = Color3.fromRGB(55,55,55)
+            
+            -- UI funcs
+            function switch(self, data, state)
+                local gun,old = self.gun,self.old
+                for i,v in next, data do
+                    Guns[gun][i] = state and v or old[i]
+                end
+            end
+            
+            function FoldInto(tab,t,cl)
+                local gc = t:GetChildren()
+                local folder,render
+                
+                local len = ChildrenOfTool(gc)
+                if len > 0 then
+                    folder,render = tab:AddFolder(
+                        ' <b><font color="rgb(180,180,180)">'..len..'</font></b>  '
+                        ..t.Name
+                    )
+                    
+                    render.Button.RichText = true
+                    if t:IsA("Team") or cl then
+                        render.ImageColor3 = cl or t.TeamColor.Color
+                        render.ImageTransparency = 0.6
+                        render.Button.TextButton_Roundify_4px.Visible = false
+                    end
+                    
+                    for i,v in next, gc do
+                        if not v:IsA("Tool") then continue end
+                        
+                        if v:FindFirstChild("ACS_Settings") then
+                            Guns[v] = require(v.ACS_Settings)
+                            local old = {}
+                            for i,v in next, Guns[v] do
+                                old[i] = v
+                            end
+                            
+                            MCache[v] = {gun=v, old=old, switch=switch}
+                        end
+                        
+                        folder:AddSwitch(v.Name, function(s)
+                            Undo[v] = s and t
+                            v.Parent = s and Player.Backpack or t
+                        end)
+                    end
+                end
+                
+                return folder,render
+            end
+            
+            -- Tools Tab
+            local Tools = Window:AddTab("Times")
+            for i,t in next, Teams:GetChildren() do
+                FoldInto(Tools, t)
+            end
+            
+            Tools:Show()
+            
+            -- Geral
+            local Geral = Window:AddTab("Geral")
+            
+            FoldInto(Geral, Storage)
+            function _foldloop(v)
+                for i,t in next, v:GetChildren() do
+                    FoldInto(Geral, t)
+                    if t:IsA("Folder") then
+                        _foldloop(t)
+                    end
+                end
+            end
+            
+            _foldloop(Storage)
+            
+            -- ACS mods
+            local Mods = Window:AddTab("Mods")
+            
+            local ACS = Mods:AddFolder("ACS")
+            ACS:AddSwitch("MuniÃ§Ã£o Infinita", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        Ammo = math.huge,
+                        StoredAmmo = math.huge,
+                        AmmoInGun = math.huge
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem recuo", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        MaxRecoilPower = 0,
+                        camRecoil = {
+                            camRecoilRight={0,0},camRecoilUp={0,0},
+                            camRecoilLeft={0,0},camRecoilTilt={0,0}
+                        }
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem dispersÃ£o de balas", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        MaxSpread = 0
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem emperragem", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        CanBreak = false
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem gravidade em balas", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        CanBreak = false
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSlider("Tiros em rajada", function(num)
+                for i,v in next, MCache do
+                    Guns[v.gun].BurstShot = num
+                end
+            end,{min = 2, max = 10})
+            
+            local Modes = ACS:AddFolder("Modos de tiro")
+            local _modes = {ChangeFiremode = true, Auto=false, Burst=false, Semi=true}
+            
+            Modes:AddSwitch("Automatico", function(state)
+                _modes["Auto"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            Modes:AddSwitch("Rajada", function(state)
+                _modes["Burst"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            Modes:AddSwitch("Semi", function(state)
+                _modes["Semi"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            -- NoCol mods
+            local NOC = Mods:AddFolder("NoCol")
+            
+            -- Backpack Undo
+            function OnChar(char)
+                char:WaitForChild("Humanoid").Died:wait()
+                for i,v in next, Undo do
+                    if v then i.Parent = Player.Backpack end
+                end
+                
+                Player.CharacterAdded:wait()
+                for i,v in next, Undo do
+                    if v then i.Parent = Player.Backpack end
+                end
+            end
+            
+            Player.CharacterAdded:connect(OnChar)
+            OnChar(Player.Character or Player.CharacterAdded:wait())
+            end,print)
+  	end    
+})
+
+MenuTab:AddButton({
+	Name = "Puxar Dinheiro Vida No Para",
+	Callback = function()
+      		local Player = game.Players.LocalPlayer
+local Dinheiro = Player.leaderstats.Dinheiro
+
+Dinheiro.Value = 99999999
+  	end    
 })
 
 CarroTab:AddButton({
