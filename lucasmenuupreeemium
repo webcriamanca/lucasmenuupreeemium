@@ -1347,7 +1347,7 @@ ArmaTab:AddButton({
     end   
   }) 
   
-  ArmaTab:AddButton({
+ArmaTab:AddButton({
       Name = "Explodir Geral - Acs 1.7.5",
       Callback = function()
           local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
@@ -1610,31 +1610,17 @@ OutrosTab:AddButton({
         loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/CrashServer"),true))()
       end   
     })
-
-    OutrosSection:AddButton({
-        Name = "FLY GUI V3",
-        Callback = function(value)
-        print(loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))())
-          end
-    })
     
-    OutrosSection:AddButton({
-        Name = "Infinity Yield",
-        Callback = function(value)
-        print(loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))())
-          end
-    })
+OutrosTab:AddButton({
+     Name = "Infinity Yield",
+     Callback = function(value)
+     print(loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))())
+       end
+})
 
-    OutrosSection:AddButton({
-        Name = "Sit",
-        Callback = function(value)
-        print(loadstring(game:HttpGet("https://raw.githubusercontent.com/retpirato/Roblox-Scripts/master/Sit.lua",true))())
-          end
-    })
-
-    OutrosSection:AddButton({
-        Name = "Destruir UI",
-        Callback = function()
-            OrionLib:Destroy()
-          end    
-    })
+OutrosTab:AddButton({
+     Name = "Destruir UI",
+     Callback = function()
+        OrionLib:Destroy()
+         end    
+})
