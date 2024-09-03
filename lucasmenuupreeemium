@@ -7,7 +7,7 @@ OrionLib:MakeNotification({
     Time = 5
 })
 
-local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP PREMIUM/EB", HidePremium = false, SaveConfig = true, ConfigFolder = "Lucas"})
+local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP (PREMIUM)", HidePremium = false, SaveConfig = true, ConfigFolder = "Lucas"})
 
 
 local JogadorTab = Window:MakeTab({
@@ -134,6 +134,14 @@ JogadorTab:AddBind({
 	Callback = function()
 		print("press")
 	end  
+})
+
+JogadorTab:AddButton({
+    Name = "AUTO JJs (true)",
+    Callback = function()
+         _G.Jump = true 
+         loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/AUTO-JJS%20ALL%20EB.lua"),true))()
+      end  
 })
 
 JogadorTab:AddButton({
@@ -643,6 +651,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/RIPExploit/23452tr2t4
 })
 
 ArmaTab:AddButton({
+	Name = "Remover Armas",
+	Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local backpack = player.Backpack
+
+        for _, item in pairs(backpack:GetChildren()) do
+            if item:IsA("Tool") then
+                item:Destroy()
+            end
+        end
+		end
+})
+
+ArmaTab:AddButton({
 	Name = "Give armas - ACS",
 	Callback = function()
         xpcall(function()
@@ -952,6 +974,15 @@ ArmaTab:AddButton({
   	end    
 })
 
+ArmaTab:AddToggle({
+    Name = "Aimbot + Esp Hub",
+    Default = false,
+    Callback = function(Value)
+        _G.Aimbot = Value
+        Aimbot()
+    end    
+})
+
 ArmaTab:AddButton({
     Name = "Rapid Fire",
     Callback = function()
@@ -1257,6 +1288,95 @@ ArmaTab:AddButton({
   	end    
 })
 
+ArmaTab:AddButton({
+	Name = "No Jump Cooldown Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.AntiBunnyHop = false
+  	end    
+})
+
+ArmaTab:AddButton({
+    Name = "Creeper Geral - Acs 1.7.5",
+    Callback = function()
+        local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+  for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+  if v:IsA("SpecialMesh") or v:IsA("Shirt") or v:IsA("Pants") or v:IsA("Part") and v.Name == "Right Arm" or v.Name == "Left Arm" then
+    rmt:FireServer(v) 
+  end
+  end
+    end   
+  }) 
+  
+ArmaTab:AddButton({
+      Name = "Explodir Geral - Acs 1.7.5",
+      Callback = function()
+          local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
+      
+          for i,v in next, players:GetPlayers() do 
+              local ppart = v['Character'].PrimaryPart
+              pcall(function()
+                  rem:FireServer(ppart.Position,ppart,ppart.Position,Enum.Material.ForceField,_t)
+              end)
+          end
+        end 
+  })
+  
+
+ArmaTab:AddButton({
+	Name = "Crash Server - Acs 2.0.1",
+	Callback = function()
+        while task.wait() do
+
+            for _, player in next, game.Players:GetPlayers() do
+               game:GetService("ReplicatedStorage")["ACS_Engine"].Events.Suppression:FireServer(player, 666, 666, 666)
+            end
+          end
+  	end    
+})
+
+ArmaTab:AddButton({
+    Name = "Creeper Geral - Acs 1.7.5",
+    Callback = function()
+        local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+  for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+  if v:IsA("SpecialMesh") or v:IsA("Shirt") or v:IsA("Pants") or v:IsA("Part") and v.Name == "Right Arm" or v.Name == "Left Arm" then
+    rmt:FireServer(v) 
+  end
+  end
+    end   
+  }) 
+  
+  ArmaTab:AddButton({
+      Name = "Explodir Geral - Acs 1.7.5",
+      Callback = function()
+          local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
+      
+          for i,v in next, players:GetPlayers() do 
+              local ppart = v['Character'].PrimaryPart
+              pcall(function()
+                  rem:FireServer(ppart.Position,ppart,ppart.Position,Enum.Material.ForceField,_t)
+              end)
+          end
+        end 
+  })
+
+ArmaTab:AddButton({
+	Name = "Infinite Stamina Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableStamina = false
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "No Fall Damage Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableFallDamage = false
+  	end    
+})
+
 local CarroTab = Window:MakeTab({
     Name = "Carro",
     Icon = "rbxassetid://4483345998",
@@ -1483,3 +1603,38 @@ OutrosTab:AddButton({
     Callback = function()
     end  
 })
+
+OutrosTab:AddButton({
+    Name = "Lagar servidor Models",
+    Callback = function()
+        loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/CrashServer"),true))()
+      end   
+    })
+
+    OutrosSection:AddButton({
+        Name = "FLY GUI V3",
+        Callback = function(value)
+        print(loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))())
+          end
+    })
+    
+    OutrosSection:AddButton({
+        Name = "Infinity Yield",
+        Callback = function(value)
+        print(loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))())
+          end
+    })
+
+    OutrosSection:AddButton({
+        Name = "Sit",
+        Callback = function(value)
+        print(loadstring(game:HttpGet("https://raw.githubusercontent.com/retpirato/Roblox-Scripts/master/Sit.lua",true))())
+          end
+    })
+
+    OutrosSection:AddButton({
+        Name = "Destruir UI",
+        Callback = function()
+            OrionLib:Destroy()
+          end    
+    })
