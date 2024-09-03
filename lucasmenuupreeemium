@@ -506,14 +506,7 @@ ArmaTab:AddButton({
             end
             end
   	end    
-})
-
-ArmaTab:AddButton({
-	Name = "Aimbot By Pedroxz",
-	Callback = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/pedroxzytbhypee/PvpRobloxTroll/main/README.md"))()
-	end
-})   
+})  
 
 JogadorTab:AddButton({
     Name = "Puxar Algema (!)",
