@@ -704,6 +704,19 @@ ArmaTab:AddButton({
   	end    
 })
 
+ArmaTab:AddButton({
+	Name = "Explodir Geral - Acs 1.7.5",
+	Callback = function()
+        local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
+	
+		for i,v in next, players:GetPlayers() do 
+			local ppart = v['Character'].PrimaryPart
+			pcall(function()
+				rem:FireServer(ppart.Position,ppart,ppart.Position,Enum.Material.ForceField,_t)
+			end)
+		end
+  	end 
+})
 
 ArmaTab:AddButton({
 	Name = "Give armas - ACS",
