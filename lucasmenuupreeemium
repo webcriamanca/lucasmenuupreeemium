@@ -57,6 +57,11 @@ local EspSection = EspTab:AddSection({
     Name = "Opções"
 })
 
+JogadorTab:AddButton({
+    Name = "instagram: @Lucas_inacio0_0",
+    Callback = function()
+      end
+})
 
 
 local EspTab = Window:MakeTab({
@@ -69,6 +74,11 @@ local EspSection = EspTab:AddSection({
     Name = "Opções"
 })
 
+JogadorTab:AddButton({
+    Name = "instagram: @Lucas_inacio0_0",
+    Callback = function()
+      end
+})
 
 
 local CarrosTab = Window:MakeTab({
@@ -81,6 +91,11 @@ local CarrosSection = CarrosTab:AddSection({
     Name = "Opções"
 })
 
+JogadorTab:AddButton({
+    Name = "instagram: @Lucas_inacio0_0",
+    Callback = function()
+      end
+})
 
 
 local OutrosTab = Window:MakeTab({
@@ -93,3 +108,8 @@ local OutrosSection = OutrosTab:AddSection({
     Name = "Opções"
 })
 
+JogadorTab:AddButton({
+    Name = "instagram: @Lucas_inacio0_0",
+    Callback = function()
+      end
+})
