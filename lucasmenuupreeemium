@@ -657,6 +657,55 @@ ArmaTab:AddButton({
 })
 
 ArmaTab:AddButton({
+	Name = "Crash Server - Acs 2.0.1",
+	Callback = function()
+        while task.wait() do
+
+            for _, player in next, game.Players:GetPlayers() do
+               game:GetService("ReplicatedStorage")["ACS_Engine"].Events.Suppression:FireServer(player, 666, 666, 666)
+            end
+          end
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "Infinite Stamina Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableStamina = false
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "No Fall Damage Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableFallDamage = false
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "Som Hack Acs 2.0.1",
+	Callback = function()
+        while task.wait() do
+
+            for _, player in next, game.Players:GetPlayers() do
+                game:GetService('ReplicatedStorage')['ACS_Engine'].Events.Whizz:FireServer(player)
+            end
+          end
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "No Jump Cooldown Acs 2.0.1",
+	Callback = function()
+        local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.AntiBunnyHop = false
+  	end    
+})
+
+
+ArmaTab:AddButton({
 	Name = "Give armas - ACS",
 	Callback = function()
         xpcall(function()
