@@ -511,6 +511,76 @@ ArmaTab:AddButton({
             until _G.Stop
   	end    
 })
+
+ArmaTab:AddButton({
+    Name = "Rapid Fire",
+    Callback = function()
+        for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetDescendants()) do
+			if v:IsA("ModuleScript") and v.Name == "Settings" then
+				local a = require(v)
+				a.Bullets = 9
+				a.Mode = "Auto"
+				a.VRecoil = {0,0}
+				a.HRecoil = {0,0}
+				a.Distance = 100000000
+				a.BDrop = 0
+				a.RandomTracer = false
+				a.TracerEveryXShots = 1
+				a.FireRate = 950
+				a.FocusOnSight = true
+				for i,v in pairs(a) do
+					print(i,v) 
+				end 
+			end 
+		end
+    end   
+})  
+
+ArmaTab:AddButton({
+	Name = "Sem Recuo",
+	Callback = function()
+        local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
+        library.flags = { }
+        local nr = library:Window("No Recoil")
+        
+        
+        library.flags["value_1"] = 1
+        library.flags["value_2"] = 1
+        library.flags["value_3"] = 1
+        
+        nr:Slider("Value 1", 1, 10, 1, function(value)
+          library.flags["value_1"] = value
+        end)
+        nr:Slider("Value 2", 1, 100, 1, function(value)
+          library.flags["value_2"] = value
+        end)
+        nr:Slider("Value 3", 1, 10, 1, function(value)
+          library.flags["value_3"] = value
+           
+        end)
+        
+        
+        local old
+        old = hookfunction(math.random, function(...)
+           local args = {...}
+        
+           -- handle if no args, math.random() (0, 1.0)
+           if args[1] == nil then
+               return old() / library.flags["value_1"]
+           end
+        
+           -- handle if upper bound. math.random(10) (1, 10)
+           if args[2] == nil then
+               return old(args[1] / library.flags["value_2"])
+           end
+        
+           -- handle if lower and upper bound. math.random(-5, 5) (-5, 5)
+        
+           return old(args[1], args[2] / library.flags["value_3"])
+        end)
+  	end    
+})
+
 ArmaTab:AddButton({
 	Name = "Menu De Armas ACS",
 	Callback = function()
@@ -742,7 +812,7 @@ local CarroTab = Window:MakeTab({
 })
 
 local CarroSection = ArmaTab:AddSection({
-    Name = "Carro"
+    Name = "Opções"
 })
 
 CarroTab:AddButton({
@@ -965,70 +1035,3 @@ CarroTab:AddButton({
   	end    
 })
 
-ArmaTab:AddButton({
-    Name = "Rapid Fire",
-    Callback = function()
-        for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetDescendants()) do
-			if v:IsA("ModuleScript") and v.Name == "Settings" then
-				local a = require(v)
-				a.Bullets = 9
-				a.Mode = "Auto"
-				a.VRecoil = {0,0}
-				a.HRecoil = {0,0}
-				a.Distance = 100000000
-				a.BDrop = 0
-				a.RandomTracer = false
-				a.TracerEveryXShots = 1
-				a.FireRate = 950
-				a.FocusOnSight = true
-				for i,v in pairs(a) do
-					print(i,v) 
-				end 
-			end 
-		end
-    end   
-})  
-ArmaTab:AddButton({
-	Name = "Sem Recuo",
-	Callback = function()
-        local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
-        library.flags = { }
-        local nr = library:Window("No Recoil")
-        
-        
-        library.flags["value_1"] = 1
-        library.flags["value_2"] = 1
-        library.flags["value_3"] = 1
-        
-        nr:Slider("Value 1", 1, 10, 1, function(value)
-          library.flags["value_1"] = value
-        end)
-        nr:Slider("Value 2", 1, 100, 1, function(value)
-          library.flags["value_2"] = value
-        end)
-        nr:Slider("Value 3", 1, 10, 1, function(value)
-          library.flags["value_3"] = value
-           
-        end)
-        
-        
-        local old
-        old = hookfunction(math.random, function(...)
-           local args = {...}
-        
-           -- handle if no args, math.random() (0, 1.0)
-           if args[1] == nil then
-               return old() / library.flags["value_1"]
-           end
-        
-           -- handle if upper bound. math.random(10) (1, 10)
-           if args[2] == nil then
-               return old(args[1] / library.flags["value_2"])
-           end
-        
-           -- handle if lower and upper bound. math.random(-5, 5) (-5, 5)
-        
-           return old(args[1], args[2] / library.flags["value_3"])
-        end)
-  	end    
-})
