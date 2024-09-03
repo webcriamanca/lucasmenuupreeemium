@@ -27,6 +27,21 @@ JogadorTab:AddButton({
 })
 
 JogadorTab:AddButton({
+	Name = "Rejoin",
+	Callback = function()
+        local PLR_SERVICE = game:GetService('Players')
+        local TELEPORT_SERVICE = game:GetService('TeleportService')
+        if #PLR_SERVICE:GetPlayers() <= 1 then
+            PLR_SERVICE.LocalPlayer:Kick('\nRejoining...')
+            wait()
+            TELEPORT_SERVICE:Teleport(game.PlaceId, PLR_SERVICE.LocalPlayer)
+        else
+            TELEPORT_SERVICE:TeleportToPlaceInstance(game.PlaceId, game.JobId, PLR_SERVICE.LocalPlayer)
+        end
+  	end    
+})
+
+JogadorTab:AddButton({
     Name = "youtube: @LucasMenuLua",
     Callback = function()
       end
@@ -397,7 +412,623 @@ local ArmaSection = ArmaTab:AddSection({
 })
 
 ArmaTab:AddButton({
-    Name = "instagram: @Lucas_inacio0_0",
+    Name = "Inf Ammo",
     Callback = function()
-      end
+        _G.Damage = 1003
+_G.FireRate = 0
+_G.Clips = 999999
+_G.AmmoInClip = 999999
+_G.Auto = true
+
+
+--\\ Load string By ZreyMenu
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RIPExploit/23452tr2t423t3t34tg34gg/master/ryewifwfripexloit.lua", true))()
+    end    
+})
+
+ArmaTab:AddButton({
+    Name = "Puxar armas",
+    Callback = function()
+        for i, v in pairs(game:GetDescendants()) do
+            if v:IsA('Tool') then
+                v.Parent = game:GetService('Players').LocalPlayer.Backpack
+            end
+        end
+        
+        game:GetService('Players').LocalPlayer.Character.Humanoid.Died:Connect(function()
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Backpack:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Character:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+        end)
+      end    
+})
+
+ArmaTab:AddButton({
+	Name = "Puxar Armas 1 Indetectável",
+	Callback = function()
+        for i,v in game.Players:GetDescendants() do
+            if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Backpack
+            end
+            end
+  	end    
+})
+ArmaTab:AddButton({
+    Name = "Clonar Items",
+    Callback = function()
+        local function ClonarTool(tool, player)
+            local backpack = player:WaitForChild("Backpack")
+            local clonedTool = tool:Clone()
+            clonedTool.Parent = backpack
+        end
+        
+        local function procurarTools()
+            local player = game.Players.LocalPlayer
+        
+            for _, tool in pairs(game:GetDescendants()) do
+                if tool:IsA("Tool") then
+                    ClonarTool(tool, player)
+                end
+            end
+        end
+        
+        procurarTools()
+      end    
+}) 
+ArmaTab:AddButton({
+	Name = "Kill All ACS - Weapon",
+	Callback = function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Kill all Hack"; 
+            Text = "By Lucas";
+            Icon = "rbxassetid://57254792"; 
+            
+            Duration = 5; 
+            })
+            --- script 
+            _G.Stop = false
+             
+            repeat game:GetService("RunService").RenderStepped:Wait()
+            for _,v in next, game:GetService("Players"):GetPlayers() do
+            if v ~= game:GetService("Players").LocalPlayer then
+            local char = v.Character or workspace:FindFirstChild(v.Name)
+            if char then
+            pcall(function()
+            char.Head.Anchored = true
+            char.Head.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,-2.5)
+            end)
+            end
+            end
+            end
+            until _G.Stop
+  	end    
+})
+ArmaTab:AddButton({
+	Name = "Menu De Armas ACS",
+	Callback = function()
+        xpcall(function()
+            local Player = game.Players.LocalPlayer
+            local Storage = game.ReplicatedStorage
+            local Teams = game:GetService("Teams")
+            local Undo,Guns,MCache = {},{},{}
+            
+            function ChildrenOfTool(gc)
+                local total = 0
+                for i,v in next, gc do
+                    if v:IsA("Tool") then
+                        total = total + 1
+                    end
+                end
+                
+                return total
+            end
+            
+            -- GUI
+            local _raw
+            local _liblink = "https://raw.githubusercontent.com/loglizzy/Elerium-lib/main/lib.min.lua"
+            if isfile and readfile then
+                if isfile("log-Elerium.lib") then
+                    _raw = readfile("log-Elerium.lib")
+                else
+                    _raw = game:HttpGet(_liblink)
+                    writefile("log-Elerium.lib", _raw)
+                end
+            else
+                _raw = game:HttpGet(_liblink)
+            end
+            
+            local Library = loadstring(_raw)()
+            local Window,WRender = Library:AddWindow("Racismo 2.0.1 [BETA]", {
+                main_color = Color3.fromRGB(45, 45, 45),
+                min_size = Vector2.new(350, 600),
+                toggle_key = Enum.KeyCode.RightShift,
+                can_resize = true,
+            })
+            
+            WRender.ImageColor3 = Color3.fromRGB(55,55,55)
+            
+            -- UI funcs
+            function switch(self, data, state)
+                local gun,old = self.gun,self.old
+                for i,v in next, data do
+                    Guns[gun][i] = state and v or old[i]
+                end
+            end
+            
+            function FoldInto(tab,t,cl)
+                local gc = t:GetChildren()
+                local folder,render
+                
+                local len = ChildrenOfTool(gc)
+                if len > 0 then
+                    folder,render = tab:AddFolder(
+                        ' <b><font color="rgb(180,180,180)">'..len..'</font></b>  '
+                        ..t.Name
+                    )
+                    
+                    render.Button.RichText = true
+                    if t:IsA("Team") or cl then
+                        render.ImageColor3 = cl or t.TeamColor.Color
+                        render.ImageTransparency = 0.6
+                        render.Button.TextButton_Roundify_4px.Visible = false
+                    end
+                    
+                    for i,v in next, gc do
+                        if not v:IsA("Tool") then continue end
+                        
+                        if v:FindFirstChild("ACS_Settings") then
+                            Guns[v] = require(v.ACS_Settings)
+                            local old = {}
+                            for i,v in next, Guns[v] do
+                                old[i] = v
+                            end
+                            
+                            MCache[v] = {gun=v, old=old, switch=switch}
+                        end
+                        
+                        folder:AddSwitch(v.Name, function(s)
+                            Undo[v] = s and t
+                            v.Parent = s and Player.Backpack or t
+                        end)
+                    end
+                end
+                
+                return folder,render
+            end
+            
+            -- Tools Tab
+            local Tools = Window:AddTab("Times")
+            for i,t in next, Teams:GetChildren() do
+                FoldInto(Tools, t)
+            end
+            
+            Tools:Show()
+            
+            -- Geral
+            local Geral = Window:AddTab("Geral")
+            
+            FoldInto(Geral, Storage)
+            function _foldloop(v)
+                for i,t in next, v:GetChildren() do
+                    FoldInto(Geral, t)
+                    if t:IsA("Folder") then
+                        _foldloop(t)
+                    end
+                end
+            end
+            
+            _foldloop(Storage)
+            
+            -- ACS mods
+            local Mods = Window:AddTab("Mods")
+            
+            local ACS = Mods:AddFolder("ACS")
+            ACS:AddSwitch("Munição Infinita", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        Ammo = math.huge,
+                        StoredAmmo = math.huge,
+                        AmmoInGun = math.huge
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem recuo", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        MaxRecoilPower = 0,
+                        camRecoil = {
+                            camRecoilRight={0,0},camRecoilUp={0,0},
+                            camRecoilLeft={0,0},camRecoilTilt={0,0}
+                        }
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem dispersão de balas", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        MaxSpread = 0
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem emperragem", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        CanBreak = false
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSwitch("Sem gravidade em balas", function(state)
+                for i,v in next, MCache do
+                    v:switch({
+                        CanBreak = false
+                    }, state)
+                end
+            end)
+            
+            ACS:AddSlider("Tiros em rajada", function(num)
+                for i,v in next, MCache do
+                    Guns[v.gun].BurstShot = num
+                end
+            end,{min = 2, max = 10})
+            
+            local Modes = ACS:AddFolder("Modos de tiro")
+            local _modes = {ChangeFiremode = true, Auto=false, Burst=false, Semi=true}
+            
+            Modes:AddSwitch("Automatico", function(state)
+                _modes["Auto"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            Modes:AddSwitch("Rajada", function(state)
+                _modes["Burst"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            Modes:AddSwitch("Semi", function(state)
+                _modes["Semi"] = state
+                for i,v in next, MCache do
+                    v:switch({
+                        FireModes = _modes
+                    }, state)
+                end
+            end)
+            
+            -- NoCol mods
+            local NOC = Mods:AddFolder("NoCol")
+            
+            -- Backpack Undo
+            function OnChar(char)
+                char:WaitForChild("Humanoid").Died:wait()
+                for i,v in next, Undo do
+                    if v then i.Parent = Player.Backpack end
+                end
+                
+                Player.CharacterAdded:wait()
+                for i,v in next, Undo do
+                    if v then i.Parent = Player.Backpack end
+                end
+            end
+            
+            Player.CharacterAdded:connect(OnChar)
+            OnChar(Player.Character or Player.CharacterAdded:wait())
+            end,print)
+  	end    
+})
+
+local CarroTab = Window:MakeTab({
+    Name = "Carro",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local CarroSection = ArmaTab:AddSection({
+    Name = "Carro"
+})
+
+CarroTab:AddButton({
+	Name = "Reparar Veiculo (acs nova)",
+	Callback = function()
+        wait(0.2)
+        game.StarterGui:SetCore("SendNotification", {
+        Title = "Veiculo Reparado!"; -- the title 
+        Text = "Reparado com sucesso!"; -- what the text says 
+        Duration = 5; -- how long the notification should in secounds
+        })
+  	end
+})
+
+CarroTab:AddButton({
+	Name = "Tp Veiculo",
+	Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/G-development-M/DreckModz/main/By_dreck_/TpCarrosCadeiras.lua'))()
+  	end        
+})
+
+CarroTab:AddButton({
+	Name = "God Mode Veiculo",
+	Callback = function()
+        godmode = true
+ 
+        game:GetService('RunService').Stepped:connect(function()
+            if godmode == true then
+                if game.Players.LocalPlayer.Character ~= nil then
+                    if game.Players.LocalPlayer.Character:FindFirstChild("Right Leg") then
+                        game.Players.LocalPlayer.Character:FindFirstChild("Right Leg"):Destroy()
+                    end
+                end
+            end
+            end)
+         
+         
+        game.Players.LocalPlayer.Chatted:Connect(function(msg)
+        local lower = string.lower(msg)
+         
+        if string.find(lower,";god") then
+            godmode = true       
+        game.Players.LocalPlayer.Character:BreakJoints()
+        end
+         
+        if string.find(lower,";ungod") then
+            godmode = false      
+        game.Players.LocalPlayer.Character:BreakJoints()
+        end
+        end)
+        --[[
+        Made by Link
+        --]]
+        
+  	end    
+})
+
+CarroTab:AddButton({
+	Name = "Veiculo Fly",
+	Callback = function()
+        local ScreenGui = Instance.new("ScreenGui")
+        local main = Instance.new("Frame")
+        local flycar = Instance.new("TextButton")
+        local Close = Instance.new("TextButton")
+        local openmain = Instance.new("Frame")
+        local open = Instance.new("TextButton")
+         
+        ScreenGui.Parent = game.CoreGui
+         
+        main.Name = "Flying Car"
+        main.Parent = ScreenGui
+        main.BackgroundColor3 = Color3.fromRGB(112, 255, 133)
+        main.Position = UDim2.new(0.0598930493, 0, 0.716088295, 0)
+        main.Size = UDim2.new(0, 120, 0, 108)
+        main.Visible = false
+        main.Active = true
+        main.Draggable = true
+         
+        flycar.Name = "CarV1"
+        flycar.Parent = main
+        flycar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        flycar.Position = UDim2.new(0, 0, 0.268518507, 0)
+        flycar.Size = UDim2.new(0, 120, 0, 50)
+        flycar.Style = Enum.ButtonStyle.RobloxButton
+        flycar.Font = Enum.Font.Gotham
+        flycar.Text = "Car Fly ZreyMenu"
+        flycar.TextColor3 = Color3.fromRGB(85, 170, 255)
+        flycar.TextSize = 14.000
+        flycar.MouseButton1Click:connect(function()
+            local Tool = Instance.new("HopperBin")
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+        Tool.Name = "กดปุ่ม R บิน"
+        local hint = Instance.new("Hint",game.Players.LocalPlayer.PlayerGui)
+           hint.Text = "Car Fly ZreyMenu"
+           hint.Name = game.JobId
+        repeat wait()
+            until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+        local mouse = game.Players.LocalPlayer:GetMouse()
+        repeat wait() until mouse
+        local plr = game.Players.LocalPlayer
+        local torso = plr.Character.Torso
+        local flying = true
+        local deb = true
+        local ctrl = {f = 0, b = 0, l = 0, r = 0}
+        local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        local maxspeed = 200
+        local speed = 0
+         
+        function Fly()
+        local bg = Instance.new("BodyGyro", torso)
+        bg.P = 9e4
+        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        bg.cframe = torso.CFrame
+        local bv = Instance.new("BodyVelocity", torso)
+        bv.velocity = Vector3.new(0,0.1,0)
+        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        repeat wait()
+        plr.Character.Humanoid.PlatformStand = false
+        if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+        speed = speed+125.0+(speed/maxspeed)
+        if speed > maxspeed then
+        speed = maxspeed
+        end
+        elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+        speed = speed-250
+        if speed < 0 then
+        speed = 0
+        end
+        end
+        if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+        lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+        elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+        else
+        bv.velocity = Vector3.new(0,0.1,0)
+        end
+        bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+        until not flying
+        ctrl = {f = 0, b = 0, l = 0, r = 0}
+        lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        speed = 0
+        bg:Destroy()
+        bv:Destroy()
+        plr.Character.Humanoid.PlatformStand = false
+        end
+        mouse.KeyDown:connect(function(key)
+        if key:lower() == "r" then
+        if flying then flying = false
+        else
+        flying = true
+        Fly()
+        end
+        elseif key:lower() == "w" then
+        ctrl.f = 1
+        elseif key:lower() == "s" then
+        ctrl.b = -1
+        elseif key:lower() == "a" then
+        ctrl.l = -1
+        elseif key:lower() == "d" then
+        ctrl.r = 1
+        end
+        end)
+        mouse.KeyUp:connect(function(key)
+        if key:lower() == "w" then
+        ctrl.f = 0
+        elseif key:lower() == "s" then
+        ctrl.b = 0
+        elseif key:lower() == "a" then
+        ctrl.l = 0
+        elseif key:lower() == "d" then
+        ctrl.r = 0
+        end
+        wait(5)
+        hint:Destroy()
+        end)
+        Fly()
+        end)    
+         
+         
+        Close.Name = "Close"
+        Close.Parent = main
+        Close.BackgroundColor3 = Color3.fromRGB(255, 32, 140)
+        Close.Position = UDim2.new(0.675000012, 0, 0, 0)
+        Close.Size = UDim2.new(0, 39, 0, 29)
+        Close.Text = "X"
+        Close.TextColor3 = Color3.fromRGB(0, 0, 0)
+        Close.TextSize = 14.000
+        Close.MouseButton1Down:connect(function()
+        main.Visible = false
+        openmain.Visible = true
+        end)
+         
+        openmain.Name = "openmain"
+        openmain.Parent = ScreenGui
+        openmain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        openmain.Position = UDim2.new(0.00641711242, 0, 0.54574132, 0)
+        openmain.Size = UDim2.new(0, 100, 0, 26)
+        openmain.Active = true
+        openmain.Draggable = true
+         
+        open.Name = "open"
+        open.Parent = openmain
+        open.BackgroundColor3 = Color3.fromRGB(255, 177, 42)
+        open.Size = UDim2.new(0, 100, 0, 26)
+        open.Text = "Car Fly ZreyMenu"
+        open.TextColor3 = Color3.fromRGB(0, 0, 0)
+        open.TextSize = 14.000
+        open.MouseButton1Down:connect(function()
+        openmain.Visible = false
+        main.Visible = true
+        end)
+         
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Car Fly ZreyMenu";
+        Text = [[Car Fly ZreyMenu
+            Car Fly ZreyMenu :D 
+            555555555]];
+        })
+  	end    
+})
+
+ArmaTab:AddButton({
+    Name = "Rapid Fire",
+    Callback = function()
+        for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetDescendants()) do
+			if v:IsA("ModuleScript") and v.Name == "Settings" then
+				local a = require(v)
+				a.Bullets = 9
+				a.Mode = "Auto"
+				a.VRecoil = {0,0}
+				a.HRecoil = {0,0}
+				a.Distance = 100000000
+				a.BDrop = 0
+				a.RandomTracer = false
+				a.TracerEveryXShots = 1
+				a.FireRate = 950
+				a.FocusOnSight = true
+				for i,v in pairs(a) do
+					print(i,v) 
+				end 
+			end 
+		end
+    end   
+})  
+ArmaTab:AddButton({
+	Name = "Sem Recuo",
+	Callback = function()
+        local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
+        library.flags = { }
+        local nr = library:Window("No Recoil")
+        
+        
+        library.flags["value_1"] = 1
+        library.flags["value_2"] = 1
+        library.flags["value_3"] = 1
+        
+        nr:Slider("Value 1", 1, 10, 1, function(value)
+          library.flags["value_1"] = value
+        end)
+        nr:Slider("Value 2", 1, 100, 1, function(value)
+          library.flags["value_2"] = value
+        end)
+        nr:Slider("Value 3", 1, 10, 1, function(value)
+          library.flags["value_3"] = value
+           
+        end)
+        
+        
+        local old
+        old = hookfunction(math.random, function(...)
+           local args = {...}
+        
+           -- handle if no args, math.random() (0, 1.0)
+           if args[1] == nil then
+               return old() / library.flags["value_1"]
+           end
+        
+           -- handle if upper bound. math.random(10) (1, 10)
+           if args[2] == nil then
+               return old(args[1] / library.flags["value_2"])
+           end
+        
+           -- handle if lower and upper bound. math.random(-5, 5) (-5, 5)
+        
+           return old(args[1], args[2] / library.flags["value_3"])
+        end)
+  	end    
 })
