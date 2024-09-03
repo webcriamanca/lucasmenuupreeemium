@@ -811,7 +811,7 @@ local CarroTab = Window:MakeTab({
     PremiumOnly = false
 })
 
-local CarroSection = ArmaTab:AddSection({
+local CarroSection = CarroTab:AddSection({
     Name = "Opções"
 })
 
