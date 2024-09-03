@@ -257,7 +257,7 @@ MenuTab:AddButton({
 })
 
 MenuTab:AddButton({
-	Name = "Puxar Dinheiro 3 Possui Bypass",
+	Name = "Puxar Dinheiro 3 Possui Bypass (visual)",
 	Callback = function()
       		local Player = game.Players.LocalPlayer
 local Dinheiro = Player.leaderstats.Dinheiro
@@ -266,7 +266,7 @@ Dinheiro.Value = 99999999
   	end   
 })
 MenuTab:AddButton({
-	Name = "Puxar Dinheiro (300K)",
+	Name = "Puxar Dinheiro (300K) (visual)",
 	Callback = function()
       		local Player = game.Players.LocalPlayer
 local Dinheiro = Player.leaderstats.Dinheiro
@@ -943,6 +943,59 @@ ArmaTab:AddButton({
 })
 
 ArmaTab:AddButton({
+	Name = "Bypass Building Cooldown Acs",
+	Callback = function()
+        game:GetService('ReplicatedStorage').ACS_Engine.Events.Refil:FireServer(game.Players.LocalPlayer.Character.ACS_Client.Kit.Fortifications, -99999999)
+  	end    
+})
+
+ArmaTab:AddButton({
+	Name = "Kill All (Pessoa com arma) (!)",
+	Callback = function()
+        local user, tool
+        for i,p in next, game.Players:GetPlayers() do
+            for i,v in next, p.Backpack:GetChildren() do
+                if v:FindFirstChild("WeaponType") then
+                    user, tool = p, v
+                    break
+                end
+            end
+        
+            if tool then break end
+            local c = p.Character
+            local t = c and c:FindFirstChildOfClass("Tool")
+            if t and t:FindFirstChild("WeaponType") then
+                user, tool = p, t
+            end
+        end
+        
+        local rmt = game.ReplicatedStorage.WeaponsSystem.Network.WeaponHit
+        local plr = game.Players.LocalPlayer
+        
+        for i,v in next, game.Players:GetPlayers() do
+            if v ~= plr and v ~= user then
+                local chr = v.Character
+                local hum = chr:FindFirstChild("Humanoid")
+                local head = chr:FindFirstChild("Head")
+        
+                rmt:FireServer(tool, {
+                    ["p"] = head.Position,
+                    ["pid"] = 1,
+                    ["part"] = head,
+                    ["d"] = 0,
+                    ["maxDist"] = 0,
+                    ["h"] = hum,
+                    ["m"] = Enum.Material.Plastic,
+                    ["n"] = Vector3.new(),
+                    ["t"] = 0,
+                    ["sid"] = 24
+                })
+            end
+        end
+  	end    
+})
+
+ArmaTab:AddButton({
     Name = "Puxar armas",
     Callback = function()
         for i, v in pairs(game:GetDescendants()) do
@@ -1475,6 +1528,83 @@ end
       end  
 })
 
+CarroTab:AddButton({
+	Name = "Puxar Carro",
+	Callback = function()
+        for _, v: string in ipairs({'Tesla', 'Impala', 'Kombi'}) do
+            game.ReplicatedStorage:WaitForChild("Remotes").Garagem:FireServer(v, "CV")
+        end
+  	end    
+})
+CarroTab:AddButton({
+	Name = "Selection Carro - Eb Do Tevez",
+	Callback = function()
+        local Plr = game.Players.LocalPlayer
+        type ret = ModuleScript
+        local function GetIconModule():ret
+            for _, instance in game.ReplicatedStorage:GetDescendants() do
+                if instance:IsA("ModuleScript") and instance.Name == "Icon" then
+                    return instance, true
+                end
+            end
+            return "Icone não achado.", false
+        end
+        
+        local Icon, Sucess = GetIconModule()
+        
+        
+        if not Sucess then return end
+        
+        local Module = require(Icon)
+        
+        local NewIcon = Module.new()
+            :setLabel("Spawnar carro")
+            :setImage(14268537581)
+            :notify()
+            :setTip("Abrir menu de spawnar carro")
+            :setDropdown({
+                
+                Module.new()
+                :setLabel("Spawnar Kombi")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Sistema";
+                    Text = "Sua kombi foi spawnada na garagem."
+                })
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Kombi", "CV")
+                end);
+        
+                Module.new()
+                :setLabel("Spawnar Impala")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                    game:GetService("StarterGui"):SetCore("SendNotification", {
+                        Title = "Sistema";
+                        Text = "Sua Impala foi spawnada na garagem."
+                    })
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Impala", "CV")
+                end);
+        
+                Module.new()
+                :setLabel("Spawnar Tesla")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                    game:GetService("StarterGui"):SetCore("SendNotification", {
+                        Title = "Sistema";
+                        Text = "Sua Tesla foi spawnada na garagem."
+                    })
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Tesla", "CV")
+                end);
+                
+                
+                Module.new()
+                :setLabel(string.format("Feito por Pedroxz63", "Hypee"))
+                :lock()
+            })        
+  	end    
+})
+
 OutrosTab:AddButton({
     Name = "Change Value",
     Callback = function()
@@ -1552,6 +1682,12 @@ OutrosTab:AddButton({
             end
         end)
       end  
+})
+
+OutrosTab:AddButton({
+    Name = "creditos: PedroxMenu",
+    Callback = function()
+    end  
 })
 
 OutrosTab:AddButton({
