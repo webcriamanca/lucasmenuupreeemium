@@ -74,14 +74,14 @@ local EspTab = Window:MakeTab({
   })
   
   EspSection:AddButton({
-    Name = "Esp V2",
+    Name = "Esp V1",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/ESP-LucasMenu-/main/esp%20lucasmenu",true))())
       end
   })
   
   EspSection:AddButton({
-    Name = "ESP V1",
+    Name = "ESP V2",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LucasMenu-ESP-/main/LucasMenu%20(ESP)",true))())
       end
@@ -94,7 +94,7 @@ local EspTab = Window:MakeTab({
       end
   })
   
-  EspTab:AddButton({
+  EspSection:AddButton({
       Name = "Staff Proximo (Esp Changer)",
       Callback = function()
             -- Gui to Lua
@@ -385,3 +385,19 @@ local EspTab = Window:MakeTab({
   end)
         end    
   })
+
+local ArmaTab = Window:MakeTab({
+    Name = "Arma",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local ArmaSection = ArmaTab:AddSection({
+    Name = "Opções"
+})
+
+ArmaTab:AddButton({
+    Name = "instagram: @Lucas_inacio0_0",
+    Callback = function()
+      end
+})
