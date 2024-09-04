@@ -216,7 +216,7 @@ JogadorTab:AddButton({
 
 local MenuTab = Window:MakeTab({
     Name = "Menu",
-    Icon = "rbxassetid://118521941040991",
+    Icon = "rbxassetid://1402553317",
     PremiumOnly = false
 })
 
@@ -1388,7 +1388,7 @@ ArmaTab:AddButton({
 
 local CarroTab = Window:MakeTab({
     Name = "Carro",
-    Icon = "rbxassetid://102005632092954",
+    Icon = "rbxassetid://1402553920",
     PremiumOnly = false
 })
 
