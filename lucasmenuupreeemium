@@ -7,7 +7,7 @@ OrionLib:MakeNotification({
     Time = 5
 })
 
-local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP PREMIUM/EB", HidePremium = false, SaveConfig = true, ConfigFolder = "Lucas"})
+local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP (V2)", HidePremium = false, SaveConfig = true, ConfigFolder = "Lucas"})
 
 
 local JogadorTab = Window:MakeTab({
