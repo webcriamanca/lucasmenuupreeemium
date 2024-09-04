@@ -1388,7 +1388,7 @@ ArmaTab:AddButton({
 
 local CarroTab = Window:MakeTab({
     Name = "Carro",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://81421385890284",
     PremiumOnly = false
 })
 
