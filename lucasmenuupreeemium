@@ -1689,3 +1689,17 @@ OutrosTab:AddButton({
     Callback = function()
     end  
 })
+
+OutrosTab:AddButton({
+    Name = "Aimbot Mobile",
+    Callback = function()
+      print(loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))())
+    end   
+})
+
+OutrosTab:AddButton({
+    Name = "Aimbot PC",
+    Callback = function()
+      print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LucasMenu-aimbot-/main/LucasMenu%20(aimbot)",true))())
+    end   
+})
