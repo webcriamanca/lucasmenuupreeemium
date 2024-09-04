@@ -896,14 +896,14 @@ ArmaTab:AddButton({
 ArmaTab:AddButton({
     Name = "Aimbot Mobile",
     Callback = function()
-      print(loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))())
+      (loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))())
     end   
 })
   
 ArmaTab:AddButton({
     Name = "Aimbot PC by LucasMenu",
     Callback = function()
-      print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LucasMenu-aimbot-/main/LucasMenu%20(aimbot)",true))())
+      (loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LucasMenu-aimbot-/main/LucasMenu%20(aimbot)",true))())
     end   
 })
 
@@ -1494,6 +1494,6 @@ OutrosTab:AddButton({
 OutrosTab:AddButton({
     Name = "Lucas Menu pvp",
     Callback = function()
-      print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LUCAS-MENU-PVP/main/LUCAS%20MENU%20PVP",true))())
+      (loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LUCAS-MENU-PVP/main/LUCAS%20MENU%20PVP",true))())
         end   
 })
