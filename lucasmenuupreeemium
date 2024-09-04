@@ -295,7 +295,7 @@ Dinheiro.Value = 300000
 
 local EspTab = Window:MakeTab({
     Name = "Esp/visual",
-    Icon = "rbxassetid://137657566272427",
+    Icon = "rbxassetid://78680417260083",
     PremiumOnly = false
   })
   
