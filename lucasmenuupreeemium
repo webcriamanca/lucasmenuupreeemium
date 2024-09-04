@@ -3,7 +3,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 OrionLib:MakeNotification({
     Name = "Lucas Menu Roleplay",
     Content = "Executando a versao premium...",
-    Image = "rbxassetid://4483345998",
+    Image = "rbxassetid://81421385890284",
     Time = 5
 })
 
@@ -216,7 +216,7 @@ JogadorTab:AddButton({
 
 local MenuTab = Window:MakeTab({
     Name = "Menu",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://118521941040991",
     PremiumOnly = false
 })
 
@@ -295,7 +295,7 @@ Dinheiro.Value = 300000
 
 local EspTab = Window:MakeTab({
     Name = "Esp/visual",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://137657566272427",
     PremiumOnly = false
   })
   
@@ -618,7 +618,7 @@ local EspTab = Window:MakeTab({
 
 local ArmaTab = Window:MakeTab({
     Name = "Arma",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://93551834061258",
     PremiumOnly = false
 })
 
@@ -1388,7 +1388,7 @@ ArmaTab:AddButton({
 
 local CarroTab = Window:MakeTab({
     Name = "Carro",
-    Icon = "rbxassetid://81421385890284",
+    Icon = "rbxassetid://102005632092954",
     PremiumOnly = false
 })
 
@@ -1493,7 +1493,7 @@ CarroTab:AddButton({
 
 local OutrosTab = Window:MakeTab({
     Name = "Outros",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://113769011924348",
     PremiumOnly = false
 })
 
