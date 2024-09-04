@@ -216,7 +216,7 @@ JogadorTab:AddButton({
 
 local MenuTab = Window:MakeTab({
     Name = "Menu",
-    Icon = "rbxassetid://1402553317",
+    Icon = "rbxassetid://13060262582",
     PremiumOnly = false
 })
 
