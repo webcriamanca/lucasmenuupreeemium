@@ -618,7 +618,7 @@ local EspTab = Window:MakeTab({
 
 local ArmaTab = Window:MakeTab({
     Name = "Arma",
-    Icon = "rbxassetid://93551834061258",
+    Icon = "rbxassetid://73589738586620",
     PremiumOnly = false
 })
 
