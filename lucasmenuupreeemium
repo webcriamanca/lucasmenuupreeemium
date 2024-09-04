@@ -304,7 +304,7 @@ local EspTab = Window:MakeTab({
   })
   
   EspSection:AddButton({
-    Name = "Esp V1",
+    Name = "Esp V1 (bug)",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/ESP-LucasMenu-/main/esp%20lucasmenu",true))())
       end
@@ -318,7 +318,7 @@ local EspTab = Window:MakeTab({
   })
   
   EspSection:AddButton({
-    Name = "ESP V3",
+    Name = "ESP V3 (pc)",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua",true))())
       end
