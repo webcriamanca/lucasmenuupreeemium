@@ -1493,7 +1493,7 @@ CarroTab:AddButton({
 
 local OutrosTab = Window:MakeTab({
     Name = "Outros",
-    Icon = "rbxassetid://113769011924348",
+    Icon = "rbxassetid://2790551206",
     PremiumOnly = false
 })
 
