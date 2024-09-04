@@ -12,7 +12,7 @@ local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP PREMIUM/EB", HidePremi
 
 local JogadorTab = Window:MakeTab({
     Name = "Jogador",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://128192131813327",
     PremiumOnly = false
 })
 
@@ -618,7 +618,7 @@ local EspTab = Window:MakeTab({
 
 local ArmaTab = Window:MakeTab({
     Name = "Arma",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://93551834061258",
     PremiumOnly = false
 })
 
@@ -1493,7 +1493,7 @@ CarroTab:AddButton({
 
 local OutrosTab = Window:MakeTab({
     Name = "Outros",
-    Icon = "rbxassetid://2790551206",
+    Icon = "rbxassetid://113769011924348",
     PremiumOnly = false
 })
 
