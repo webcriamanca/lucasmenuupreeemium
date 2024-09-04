@@ -4,7 +4,7 @@ OrionLib:MakeNotification({
     Name = "Lucas Menu Roleplay",
     Content = "Executando a versao premium...",
     Image = "rbxassetid://81421385890284",
-    Time = 5
+    Time = 4
 })
 
 local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP PREMIUM/EB", HidePremium = false, SaveConfig = true, ConfigFolder = "Lucas"})
