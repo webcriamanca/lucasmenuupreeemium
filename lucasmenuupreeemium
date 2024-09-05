@@ -214,8 +214,7 @@ JogadorTab:AddButton({
 })
 
 local MenuTab = Window:MakeTab({
-    Name = "Menu",
-    Icon = "rbxassetid://13060262582",
+    Name = "📜 | Menu",
     PremiumOnly = false
 })
 
@@ -293,8 +292,7 @@ Dinheiro.Value = 300000
 })     
 
 local EspTab = Window:MakeTab({
-    Name = "Esp/visual",
-    Icon = "rbxassetid://78680417260083",
+    Name = "👁️ | Esp/visual",
     PremiumOnly = false
   })
   
@@ -616,8 +614,7 @@ local EspTab = Window:MakeTab({
   })
 
 local ArmaTab = Window:MakeTab({
-    Name = "Arma",
-    Icon = "rbxassetid://73589738586620",
+    Name = "🔫 | Arma",
     PremiumOnly = false
 })
 
@@ -1386,8 +1383,7 @@ ArmaTab:AddButton({
 })
 
 local CarroTab = Window:MakeTab({
-    Name = "Carro",
-    Icon = "rbxassetid://1402553920",
+    Name = "🚗 | Carro",
     PremiumOnly = false
 })
 
@@ -1491,8 +1487,7 @@ CarroTab:AddButton({
 })
 
 local OutrosTab = Window:MakeTab({
-    Name = "Outros",
-    Icon = "rbxassetid://2790551206",
+    Name = "➕ | Outros",
     PremiumOnly = false
 })
 
