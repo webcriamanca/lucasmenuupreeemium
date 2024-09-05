@@ -301,21 +301,21 @@ local EspTab = Window:MakeTab({
   })
   
   EspSection:AddButton({
-    Name = "👁️ Esp V1 (bug)",
+    Name = "👁️ | Esp V1 (bug)",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/ESP-LucasMenu-/main/esp%20lucasmenu",true))())
       end
   })
   
   EspSection:AddButton({
-    Name = "👁️ ESP V2",
+    Name = "👁️ | Esp V2",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/webcriamanca/LucasMenu-ESP-/main/LucasMenu%20(ESP)",true))())
       end
   })
   
   EspSection:AddButton({
-    Name = "👁️ ESP V3 (pc)",
+    Name = "👁️ | ESP V3 (pc)",
     Callback = function(value)
     print(loadstring(game:HttpGet("https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua",true))())
       end
