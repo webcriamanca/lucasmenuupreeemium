@@ -11,8 +11,7 @@ local Window = OrionLib:MakeWindow({Name = "Lucas Menu RP (V2)", HidePremium = f
 
 
 local JogadorTab = Window:MakeTab({
-    Name = "🙍‍♂️ Jogador",
-    Icon = "rbxassetid://18547923547",
+    Name = "🙍‍♂️ | Jogador",
     PremiumOnly = false
 })
 
