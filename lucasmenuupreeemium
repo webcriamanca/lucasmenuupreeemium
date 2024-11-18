@@ -67,6 +67,18 @@ JogadorTab:AddSlider({
 }) 
 
 JogadorTab:AddSlider({
+    Name = "SET MUNIÇÃO",
+    Min = 16,
+    Max = 500,
+    Default = 16,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "Munição",
+    Callback = function(Value)
+        end    
+}) 
+
+JogadorTab:AddSlider({
     Name = "Pulo",
     Min = 16,
     Max = 500,
@@ -95,7 +107,7 @@ JogadorTab:AddButton({
 })
 
 JogadorTab:AddButton({
-    Name = "youtube: @LucasMenuLua",
+    Name = "youtube: @telinhamenu",
     Callback = function()
       end
 })
@@ -121,7 +133,7 @@ JogadorTab:AddButton({
 })
 
 JogadorTab:AddButton({
-    Name = "instagram: @Lucas_inacio0_0",
+    Name = "instagram: @Lucas_cmap",
     Callback = function()
       end
 })
